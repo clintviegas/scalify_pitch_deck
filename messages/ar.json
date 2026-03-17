@@ -1,0 +1,44 @@
+{
+  "pitchdeck": {
+    "badge": "عرض تقديمي 2026",
+    "title": "قصة سكاليفاي",
+    "rotateTitle": "أدِر هاتفك",
+    "rotateSubtitle": "يُفضَّل مشاهدة هذا العرض في الوضع الأفقي.",
+    "iframeTitle": "عرض سكاليفاي التقديمي 2026",
+    "iframeSrc": "https://www.canva.com/design/DAHELwhfjSQ/ZhHuAg_OQK-jKB3spYoOfA/view?embed"
+  },
+  "navbar": {
+    "services": "الخدمات",
+    "about": "من نحن",
+    "analytics": "التحليلات",
+    "contact": "تواصل معنا",
+    "cta": "ابدأ مشروعك",
+    "toggleMenu": "تبديل القائمة"
+  },
+  "footer": {
+    "tagline": "شريكك المتكامل للنمو. احلم. ابنِ. توسّع.",
+    "ctaHeading1": "وسّع نطاق أعمالك",
+    "ctaHeading2": "لا مكتبك",
+    "ctaButton": "احجز مكالمة استراتيجية",
+    "sectionLearn": "تعلّم",
+    "sectionExplore": "استكشف",
+    "sectionContact": "تواصل معنا",
+    "linkAbout": "من نحن",
+    "linkBlog": "المدونة",
+    "linkHome": "الرئيسية",
+    "linkServices": "الخدمات",
+    "linkAnalytics": "التحليلات",
+    "linkContact": "تواصل معنا",
+    "copyright": "© سكاليفاي FZE 2026 | جميع الحقوق محفوظة",
+    "privacyPolicy": "سياسة الخصوصية",
+    "refundPolicy": "سياسة الاسترداد",
+    "cityDubai": "دبي",
+    "citySweden": "السويد",
+    "cityIreland": "أيرلندا"
+  },
+  "video": {
+    "tag": "✦ قصتنا",
+    "title": "شاهد كيف نوسّع العلامات التجارية",
+    "subtitle": "سكاليفاي في العمل — من الاستراتيجية إلى التنفيذ."
+  }
+}

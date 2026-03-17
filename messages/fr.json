@@ -1,0 +1,44 @@
+{
+  "pitchdeck": {
+    "badge": "Présentation 2026",
+    "title": "L'Histoire de Scalify",
+    "rotateTitle": "Retournez votre téléphone",
+    "rotateSubtitle": "Cette présentation est mieux vue en mode paysage.",
+    "iframeTitle": "Présentation Scalify 2026",
+    "iframeSrc": "https://www.canva.com/design/DAG_PnZCor8/3CiShfLm2jX6EGoba1VhZQ/view?embed"
+  },
+  "navbar": {
+    "services": "Services",
+    "about": "À propos",
+    "analytics": "Analytiques",
+    "contact": "Contact",
+    "cta": "Démarrer votre projet",
+    "toggleMenu": "Basculer le menu"
+  },
+  "footer": {
+    "tagline": "Votre partenaire de croissance de bout en bout. Rêvez. Construisez. Évoluez.",
+    "ctaHeading1": "Développez votre entreprise",
+    "ctaHeading2": "Pas votre bureau",
+    "ctaButton": "Réserver un appel stratégique",
+    "sectionLearn": "Apprendre",
+    "sectionExplore": "Explorer",
+    "sectionContact": "Nous contacter",
+    "linkAbout": "À propos",
+    "linkBlog": "Blog",
+    "linkHome": "Accueil",
+    "linkServices": "Services",
+    "linkAnalytics": "Analytiques",
+    "linkContact": "Contact",
+    "copyright": "© Scalify FZE 2026 | Tous droits réservés",
+    "privacyPolicy": "Politique de confidentialité",
+    "refundPolicy": "Politique de remboursement",
+    "cityDubai": "Dubaï",
+    "citySweden": "Suède",
+    "cityIreland": "Irlande"
+  },
+  "video": {
+    "tag": "✦ Notre Histoire",
+    "title": "Découvrez comment nous développons des marques",
+    "subtitle": "Scalify en action — de la stratégie à l'exécution."
+  }
+}

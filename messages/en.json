@@ -1,0 +1,44 @@
+{
+  "pitchdeck": {
+    "badge": "Pitch Deck 2026",
+    "title": "The Scalify Story",
+    "rotateTitle": "Rotate your phone",
+    "rotateSubtitle": "This presentation is best viewed in landscape mode.",
+    "iframeTitle": "Scalify Pitch Deck 2026",
+    "iframeSrc": "https://www.canva.com/design/DAG_PnZCor8/3CiShfLm2jX6EGoba1VhZQ/view?embed"
+  },
+  "navbar": {
+    "services": "Services",
+    "about": "About",
+    "analytics": "Analytics",
+    "contact": "Contact",
+    "cta": "Start Your Project",
+    "toggleMenu": "Toggle menu"
+  },
+  "footer": {
+    "tagline": "Your end-to-end growth partner. Dream. Build. Scale.",
+    "ctaHeading1": "Expand Your Business",
+    "ctaHeading2": "Not Your Office",
+    "ctaButton": "Book a Strategy Call",
+    "sectionLearn": "Learn",
+    "sectionExplore": "Explore",
+    "sectionContact": "Get in Touch",
+    "linkAbout": "About",
+    "linkBlog": "Blog",
+    "linkHome": "Home",
+    "linkServices": "Services",
+    "linkAnalytics": "Analytics",
+    "linkContact": "Contact",
+    "copyright": "© Scalify FZE 2026 | All Rights Reserved",
+    "privacyPolicy": "Privacy Policy",
+    "refundPolicy": "Refund Policy",
+    "cityDubai": "Dubai",
+    "citySweden": "Sweden",
+    "cityIreland": "Ireland"
+  },
+  "video": {
+    "tag": "✦ Our Story",
+    "title": "Watch How We Scale Brands",
+    "subtitle": "See Scalify in action — from strategy to execution."
+  }
+}

@@ -1,5 +1,7 @@
-import { PitchDeck } from "@/components/PitchDeck";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return <PitchDeck />;
+// The middleware redirects "/" → "/en" automatically.
+// This is a safety fallback in case middleware doesn't run.
+export default function RootPage() {
+  redirect("/en");
 }
