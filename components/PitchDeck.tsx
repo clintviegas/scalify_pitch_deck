@@ -1,32 +1,58 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
-import { useTransition } from "react";
+import { useState } from "react";
 
-const LOCALES = [
+type Locale = "en" | "fr" | "ar";
+
+const LOCALES: { code: Locale; label: string; flag: string }[] = [
   { code: "en", label: "EN", flag: "🇬🇧" },
   { code: "fr", label: "FR", flag: "🇫🇷" },
   { code: "ar", label: "عر", flag: "🇦🇪" },
-] as const;
+];
+
+const CANVA_SRC: Record<Locale, string> = {
+  en: "https://www.canva.com/design/DAG_PnZCor8/3CiShfLm2jX6EGoba1VhZQ/view?embed",
+  fr: "https://www.canva.com/design/DAHEMr9BS0k/9w2dcHrk_zUTNcJY2axHTg/view?embed",
+  ar: "https://www.canva.com/design/DAHELwhfjSQ/ZhHuAg_OQK-jKB3spYoOfA/view?embed",
+};
+
+const UI: Record<Locale, {
+  badge: string;
+  title: string;
+  rotateTitle: string;
+  rotateSubtitle: string;
+  iframeTitle: string;
+}> = {
+  en: {
+    badge: "Pitch Deck 2026",
+    title: "The Scalify Story",
+    rotateTitle: "Rotate your phone",
+    rotateSubtitle: "This presentation is best viewed in landscape mode.",
+    iframeTitle: "Scalify Pitch Deck 2026",
+  },
+  fr: {
+    badge: "Présentation 2026",
+    title: "L'Histoire de Scalify",
+    rotateTitle: "Retournez votre téléphone",
+    rotateSubtitle: "Cette présentation est mieux vue en mode paysage.",
+    iframeTitle: "Présentation Scalify 2026",
+  },
+  ar: {
+    badge: "عرض تقديمي 2026",
+    title: "قصة سكاليفاي",
+    rotateTitle: "أدِر هاتفك",
+    rotateSubtitle: "يُفضَّل مشاهدة هذا العرض في الوضع الأفقي.",
+    iframeTitle: "عرض سكاليفاي التقديمي 2026",
+  },
+};
 
 export function PitchDeck() {
-  const t = useTranslations("pitchdeck");
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [isPending, startTransition] = useTransition();
-
-  const switchLocale = (next: string) => {
-    // Replace the current locale prefix in the path
-    const newPath = pathname.replace(`/${locale}`, `/${next}`);
-    startTransition(() => {
-      router.push(newPath || `/${next}`);
-    });
-  };
+  const [locale, setLocale] = useState<Locale>("en");
+  const t = UI[locale];
+  const dir = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <>
+    <div dir={dir}>
       {/* Force landscape on mobile via CSS */}
       <style>{`
         @media screen and (max-width: 768px) and (orientation: portrait) {
@@ -52,8 +78,8 @@ export function PitchDeck() {
           <path d="M4 17h11a2 2 0 0 0 2-2V5"/>
           <path d="m9 22-5-5 5-5"/>
         </svg>
-        <p className="text-white text-lg font-bold">{t("rotateTitle")}</p>
-        <p className="text-white/50 text-sm">{t("rotateSubtitle")}</p>
+        <p className="text-white text-lg font-bold">{t.rotateTitle}</p>
+        <p className="text-white/50 text-sm">{t.rotateSubtitle}</p>
       </div>
 
       {/* ── Main content ── */}
@@ -69,7 +95,7 @@ export function PitchDeck() {
               className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase mb-1"
               style={{ background: "rgba(240,82,35,0.18)", color: "#f05223", border: "1px solid rgba(240,82,35,0.35)" }}
             >
-              {t("badge")}
+              {t.badge}
             </span>
             <a
               href="https://scalify.ae"
@@ -78,7 +104,7 @@ export function PitchDeck() {
               className="group block"
             >
               <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight group-hover:text-[#f05223] transition-colors duration-200 cursor-pointer">
-                {t("title")}
+                {t.title}
               </h1>
             </a>
           </div>
@@ -88,9 +114,7 @@ export function PitchDeck() {
             {LOCALES.map(({ code, label, flag }) => (
               <button
                 key={code}
-                onClick={() => switchLocale(code)}
-                disabled={isPending}
-                title={flag}
+                onClick={() => setLocale(code)}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide transition-all duration-150
                   ${locale === code
                     ? "bg-[#f05223] text-white shadow-[0_2px_8px_rgba(240,82,35,0.4)]"
@@ -104,23 +128,24 @@ export function PitchDeck() {
           </div>
         </div>
 
-        {/* Canva iframe — full height, Canva's native toolbar visible */}
+        {/* Canva iframe */}
         <div className="flex-1 px-3 sm:px-8 pb-5 sm:pb-8" style={{ minHeight: 0 }}>
           <div
             className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
             style={{ paddingTop: "56.25%", background: "#111" }}
           >
             <iframe
+              key={locale}
               loading="lazy"
-              src={t("iframeSrc")}
+              src={CANVA_SRC[locale]}
               allowFullScreen
               allow="fullscreen; autoplay"
               style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-              title={t("iframeTitle")}
+              title={t.iframeTitle}
             />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
