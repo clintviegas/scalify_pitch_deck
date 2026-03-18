@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 type Locale = "en" | "fr" | "ar";
 
@@ -10,10 +10,20 @@ const LOCALES: { code: Locale; label: string; flag: string }[] = [
   { code: "ar", label: "عر", flag: "🇦🇪" },
 ];
 
+// Design IDs for the Canva Embed SDK
+const CANVA_DESIGN: Record<Locale, { id: string; token: string }> = {
+  en: { id: "DAG_PnZCor8", token: "3CiShfLm2jX6EGoba1VhZQ" },
+  fr: { id: "DAHEMr9BS0k", token: "9w2dcHrk_zUTNcJY2axHTg" },
+  ar: { id: "DAHELwhfjSQ", token: "ZhHuAg_OQK-jKB3spYoOfA" },
+};
+
+// Arabic starts at slide 23 (last slide), others at slide 1
+const START_SLIDE: Record<Locale, number> = { en: 1, fr: 1, ar: 23 };
+
 const CANVA_SRC: Record<Locale, string> = {
-  en: "https://www.canva.com/design/DAG_PnZCor8/3CiShfLm2jX6EGoba1VhZQ/view?embed",
-  fr: "https://www.canva.com/design/DAHEMr9BS0k/9w2dcHrk_zUTNcJY2axHTg/view?embed",
-  ar: "https://www.canva.com/design/DAHELwhfjSQ/ZhHuAg_OQK-jKB3spYoOfA/view?embed",
+  en: `https://www.canva.com/design/${CANVA_DESIGN.en.id}/${CANVA_DESIGN.en.token}/view?embed`,
+  fr: `https://www.canva.com/design/${CANVA_DESIGN.fr.id}/${CANVA_DESIGN.fr.token}/view?embed`,
+  ar: `https://www.canva.com/design/${CANVA_DESIGN.ar.id}/${CANVA_DESIGN.ar.token}/view?embed`,
 };
 
 const UI: Record<Locale, {
@@ -48,8 +58,36 @@ const UI: Record<Locale, {
 
 export function PitchDeck() {
   const [locale, setLocale] = useState<Locale>("en");
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const t = UI[locale];
   const dir = locale === "ar" ? "rtl" : "ltr";
+
+  // After the iframe loads, use postMessage to jump to the correct slide
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const targetSlide = START_SLIDE[locale];
+    if (targetSlide <= 1) return; // slide 1 is default, no jump needed
+
+    const handleLoad = () => {
+      // Canva Embed SDK postMessage API — navigate to page index (0-based)
+      const msg = JSON.stringify({
+        type: "NAVIGATE_TO_PAGE",
+        page: targetSlide - 1, // 0-based index
+      });
+
+      // Try immediately and retry a few times to make sure Canva is ready
+      const send = () => iframe.contentWindow?.postMessage(msg, "https://www.canva.com");
+      send();
+      setTimeout(send, 800);
+      setTimeout(send, 1800);
+      setTimeout(send, 3000);
+    };
+
+    iframe.addEventListener("load", handleLoad);
+    return () => iframe.removeEventListener("load", handleLoad);
+  }, [locale]);
 
   return (
     <div dir={dir}>
@@ -115,11 +153,11 @@ export function PitchDeck() {
               <button
                 key={code}
                 onClick={() => setLocale(code)}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide transition-all duration-150
-                  ${locale === code
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold tracking-wide transition-all duration-150 ${
+                  locale === code
                     ? "bg-[#f05223] text-white shadow-[0_2px_8px_rgba(240,82,35,0.4)]"
                     : "text-white/50 hover:text-white hover:bg-white/10 border border-white/10"
-                  }`}
+                }`}
               >
                 <span>{flag}</span>
                 <span>{label}</span>
@@ -135,6 +173,7 @@ export function PitchDeck() {
             style={{ paddingTop: "56.25%", background: "#111" }}
           >
             <iframe
+              ref={iframeRef}
               key={locale}
               loading="lazy"
               src={CANVA_SRC[locale]}
