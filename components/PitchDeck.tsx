@@ -26,6 +26,18 @@ const CANVA_SRC: Record<Locale, string> = {
   ar: `https://www.canva.com/design/${CANVA_DESIGN.ar.id}/${CANVA_DESIGN.ar.token}/view?embed`,
 };
 
+const PDF_PATH: Record<Locale, string> = {
+  en: "/scalify-pitch-deck-en.pdf",
+  fr: "/scalify-pitch-deck-fr.pdf",
+  ar: "/scalify-pitch-deck-ar.pdf",
+};
+
+const PDF_FILENAME: Record<Locale, string> = {
+  en: "Scalify Pitch Deck 2026.pdf",
+  fr: "Scalify Pitch Deck 2026 - FR.pdf",
+  ar: "Scalify Pitch Deck 2026 - AR.pdf",
+};
+
 const UI: Record<Locale, {
   badge: string;
   title: string;
@@ -147,8 +159,8 @@ export function PitchDeck() {
             </a>
           </div>
 
-          {/* Language switcher */}
-          <div className="flex items-center gap-1.5">
+          {/* Language switcher + Download */}
+          <div className="flex items-center gap-2">
             {LOCALES.map(({ code, label, flag }) => (
               <button
                 key={code}
@@ -163,6 +175,24 @@ export function PitchDeck() {
                 <span>{label}</span>
               </button>
             ))}
+
+            {/* Divider */}
+            <div className="w-px h-5 bg-white/20 mx-1" />
+
+            {/* Download PDF */}
+            <a
+              href={PDF_PATH[locale]}
+              download={PDF_FILENAME[locale]}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold tracking-wide border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all duration-150"
+              title="Download PDF"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span className="hidden sm:inline">PDF</span>
+            </a>
           </div>
         </div>
 
